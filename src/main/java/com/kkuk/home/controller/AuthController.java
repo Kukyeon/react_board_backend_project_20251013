@@ -1,13 +1,18 @@
 package com.kkuk.home.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kkuk.home.entity.SiteUser;
 import com.kkuk.home.repository.UserRepository;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -22,6 +27,7 @@ public class AuthController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	//회원가입
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@RequestBody SiteUser req) {
 		// 이미 존재하는 사용자 이름(username) 인지 확인
@@ -37,5 +43,9 @@ public class AuthController {
 		//return ResponseEntity.ok(req); // 가입 성공 후 엔티티 반환
 	}
 	
-	
+	//로그인
+	@GetMapping("/me") // 현재 로그인한 사용자 정보 가저와라 하는 요청
+	public ResponseEntity<?> me(Authentication auth){ 
+		return ResponseEntity.ok(Map.of("username", auth.getName()));
+	}
 }

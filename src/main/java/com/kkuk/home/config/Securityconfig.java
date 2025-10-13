@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -20,6 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @EnableWebSecurity //모든 요청 url이 스프링 시큐리티의 제어를 받도록 하는 annotation
 public class Securityconfig {
    
+	//회원가입
    @Bean
    public SecurityFilterChain fiteChain(HttpSecurity http) throws Exception {
       http
@@ -53,6 +55,8 @@ public class Securityconfig {
    public PasswordEncoder passwordEncoder() {
       return new BCryptPasswordEncoder();
    }
+   
+   
    
    //프론트엔드 리액트에서 요청하는 주소 허용
    @Bean
