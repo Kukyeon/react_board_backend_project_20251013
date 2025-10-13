@@ -27,12 +27,12 @@ public class Securityconfig {
       http
       .csrf(csrf -> csrf.disable()) //csrf 인증을 비활성화->리액트, vue 같은 프론트엔+백엔드 구조->불필요
       .cors(Customizer.withDefaults()) //cors->활성화
-        .authorizeHttpRequests(authorize -> authorize
+        .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/board", "/api/board/**").permitAll()
             .anyRequest().authenticated()
         )
         .formLogin(login -> login
-            .loginPage("/api/auth/login") //로그인 요청 url
+            .loginProcessingUrl("/api/auth/login") //로그인 요청 url
             .usernameParameter("username")
             .passwordParameter("password")
             //로그인이 성공시 -> ok -> 200
@@ -43,7 +43,7 @@ public class Securityconfig {
         )
         .logout(logout -> logout
            .logoutUrl("/api/auth/logout") //로그아웃 요청이 들어오는 url
-           .logoutSuccessHandler((req, res, ex) -> res.setStatus(HttpServletResponse.SC_OK))
+           .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
            //로그아웃 성공시 200 응답
             
         );
