@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,21 +16,23 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Board {
+public class Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; // 게시판번호
+	private Long id;
 	
-	private String title; // 게시판제목
+	@Column(nullable = false, length = 500)
+	private String content; // 댓글 내용 
 	
-	private String content; // 게시판내용
+	@CreationTimestamp
+	private LocalDateTime createDate; // 댓글 입력 날자시간
+
+	//로그인한 사용자의 이름 -> 댓글 작성한 사용자 
+	@ManyToOne
+	private SiteUser author;
 	
-	@CreationTimestamp // 자동으로 insert 시 현재 날짜 시간 삽입
-	private LocalDateTime createDate;
-	
-	@ManyToOne // N : 1 관계 -> 게시판글 : 유저
-	private SiteUser author; // 게시판 글쓴이
-	
-	
+	//댓글이 달릴 게시글의 id
+	@ManyToOne
+	private Board board;
 }
