@@ -102,7 +102,7 @@ public class CommentController {
 	
 	//댓글 수정
 	@PutMapping("/{commentId}")
-	public ResponseEntity<?> updateComment(@PathVariable("comment") Long commentId,
+	public ResponseEntity<?> updateComment(@PathVariable("commentId") Long commentId,
 											@RequestBody CommentDto commentDto,
 											Authentication auth) {
 		

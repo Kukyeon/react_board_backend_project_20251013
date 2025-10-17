@@ -30,6 +30,7 @@ import com.kkuk.home.dto.BoardDto;
 import com.kkuk.home.entity.Board;
 import com.kkuk.home.entity.SiteUser;
 import com.kkuk.home.repository.BoardRepository;
+import com.kkuk.home.repository.CommentRepository;
 import com.kkuk.home.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -38,12 +39,18 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/board")
 public class BoardController {
+
+    private final CommentRepository commentRepository;
 	
 	@Autowired
 	private BoardRepository boardRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
+
+    BoardController(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 	
 //	//전체 게시글 조회->페이징 처리 x
 //	@GetMapping
