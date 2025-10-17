@@ -95,7 +95,7 @@ public class CommentController {
 			return ResponseEntity.badRequest().body("해당 게시글이 존재하지 않습니다.");
 		}
 		
-		List<Comment> comments  = commentRepository.findByBoard(_board.get());
+		List<Comment> comments = commentRepository.findByBoard(_board.get());
 		
 		return ResponseEntity.ok(comments);
 	}
